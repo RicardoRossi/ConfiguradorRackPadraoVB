@@ -20,5 +20,10 @@
     Sub FinalizarSolidWorks()
         swApp.ExitApp()
         swApp = Nothing
+        Dim swProc() As Process = Process.GetProcessesByName("SLDWORKS")
+        For Each proc In swProc
+            Dim ID = proc.Id
+            proc.Kill()
+        Next
     End Sub
 End Module

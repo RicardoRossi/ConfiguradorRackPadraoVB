@@ -9,6 +9,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DAL", "DAL\DAL.vbproj", "{E
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ConfiguradorRack", "ConfiguradorRack\ConfiguradorRack.vbproj", "{3FCF3001-CF60-4CB0-AEC4-940D0DEDC8D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrocaConfiguracao", "TrocaConfiguracao\TrocaConfiguracao.csproj", "{1AF48F3D-03A3-407C-A1F0-5AC9D43E42E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3FCF3001-CF60-4CB0-AEC4-940D0DEDC8D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FCF3001-CF60-4CB0-AEC4-940D0DEDC8D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FCF3001-CF60-4CB0-AEC4-940D0DEDC8D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AF48F3D-03A3-407C-A1F0-5AC9D43E42E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF48F3D-03A3-407C-A1F0-5AC9D43E42E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AF48F3D-03A3-407C-A1F0-5AC9D43E42E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AF48F3D-03A3-407C-A1F0-5AC9D43E42E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

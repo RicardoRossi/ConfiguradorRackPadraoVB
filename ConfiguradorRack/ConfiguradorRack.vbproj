@@ -137,6 +137,10 @@
       <Project>{e79a4ee0-b8e3-4dc8-bf45-40b8693b9ac4}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TrocaConfiguracao\TrocaConfiguracao.csproj">
+      <Project>{1af48f3d-03a3-407c-a1f0-5ac9d43e42e6}</Project>
+      <Name>TrocaConfiguracao</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

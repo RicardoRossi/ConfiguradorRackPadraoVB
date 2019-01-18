@@ -1,16 +1,18 @@
 ﻿Imports SwConst
 Imports SldWorks
 Imports System.Console
+Imports TrocaConfiguracao
 Module ModuloMain
     Dim swApp As SldWorks.SldWorks
     Dim swModel As ModelDoc2
     Dim swExt As ModelDocExtension
     Dim swAsm As AssemblyDoc
     Dim swView As ModelView
+    Dim erro, aviso As Integer
 
     Public Sub Main()
 
-        Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 1)
+        Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 3)
 
         For Each codigo In codigos
             Dim fullNameSaveAs = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\RACK PADRAO TESTE\" & codigo & ".SLDASM"
@@ -22,8 +24,9 @@ Module ModuloMain
             End Try
 
             Try
-                swApp.OpenDoc("C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\template_00_rp.SLDASM", swDocumentTypes_e.swDocASSEMBLY)
-                swApp.ActivateDoc("C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\template_00_rp.SLDASM")
+                Dim caminhoTemplate = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\template_00_rp.SLDASM"
+                swApp.OpenDoc6(caminhoTemplate, swDocumentTypes_e.swDocASSEMBLY, swOpenDocOptions_e.swOpenDocOptions_ReadOnly, "", erro, aviso)
+                swApp.ActivateDoc(caminhoTemplate)
             Catch ex As Exception
                 Threading.Thread.Sleep(60000)
                 Continue For
@@ -43,11 +46,6 @@ Module ModuloMain
             'Preencher propriedades
             Propriedades.AdicionarPropriedades(codigo)
 
-
-            'Salva a montagem
-            swModel.SaveAs3(fullNameSaveAs, 0, 0)
-
-
             'Exclude peça da BOM
             swExt = swModel.Extension
             Dim selecao = "SCM_RP-1@" & codigo
@@ -55,7 +53,12 @@ Module ModuloMain
             swAsm = swModel
             retBool = swAsm.CompConfigProperties5(2, 0, False, True, "", True, False)
 
-            swModel.Save()
+            Configuracao.TrocarConfiguracaoBase(swAsm)
+
+            'Salva a montagem
+            retBool = swExt.SaveAs(fullNameSaveAs, swSaveAsVersion_e.swSaveAsCurrentVersion, swSaveAsOptions_e.swSaveAsOptions_Silent, Nothing, erro, aviso)
+
+            'swModel.Save()
 
             'Cria desenho
             Desenhar(fullNameSaveAs)

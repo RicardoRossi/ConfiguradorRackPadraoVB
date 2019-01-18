@@ -125,12 +125,12 @@ Module Fabrica
         swModel = swApp.ActiveDoc
         Dim swAsm As AssemblyDoc = swModel
         Dim swComp As Component2
-        Dim randonX = New Random
-        Dim cx = randonX.NextDouble
-        Dim randonY = New Random
-        Dim cY = randonX.NextDouble
+        'Dim randonX = New Random
+        'Dim cx = randonX.NextDouble
+        'Dim randonY = New Random
+        'Dim cY = randonX.NextDouble
 
-        swComp = swAsm.AddComponent4(arquivo, "", cx, cY, 0) 'Adiciona na montagem
+        swComp = swAsm.AddComponent4(arquivo, "", 0, 0, 0) 'Adiciona na montagem
         swComp.Select(False)
         swAsm.UnfixComponent() 'Deixa float, para posteriormente add mate entre cs_ e scm
         Return swComp 'Retorna o Component2
