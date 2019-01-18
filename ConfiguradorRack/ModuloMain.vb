@@ -9,10 +9,11 @@ Module ModuloMain
     Dim swAsm As AssemblyDoc
     Dim swView As ModelView
     Dim erro, aviso As Integer
+    Dim retBool As Boolean
 
     Public Sub Main()
 
-        Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 3)
+        Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 256)
 
         For Each codigo In codigos
             Dim fullNameSaveAs = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\RACK PADRAO TESTE\" & codigo & ".SLDASM"
@@ -42,23 +43,22 @@ Module ModuloMain
             swApp.DocumentVisible(True, swDocumentTypes_e.swDocPART)
             swApp.ActivateDoc("C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\template_00_rp.SLDASM")
             swModel = swApp.ActiveDoc
+            swExt = swModel.Extension
+
+            'Salva a montagem
+            retBool = swExt.SaveAs(fullNameSaveAs, swSaveAsVersion_e.swSaveAsCurrentVersion, swSaveAsOptions_e.swSaveAsOptions_Silent, Nothing, erro, aviso)
 
             'Preencher propriedades
             Propriedades.AdicionarPropriedades(codigo)
 
             'Exclude peça da BOM
-            swExt = swModel.Extension
             Dim selecao = "SCM_RP-1@" & codigo
-            Dim retBool = swExt.SelectByID2(selecao, "COMPONENT", 0, 0, 0, False, 0, Nothing, 0)
+            retBool = swExt.SelectByID2(selecao, "COMPONENT", 0, 0, 0, False, 0, Nothing, 0)
             swAsm = swModel
             retBool = swAsm.CompConfigProperties5(2, 0, False, True, "", True, False)
 
             Configuracao.TrocarConfiguracaoBase(swAsm)
-
-            'Salva a montagem
-            retBool = swExt.SaveAs(fullNameSaveAs, swSaveAsVersion_e.swSaveAsCurrentVersion, swSaveAsOptions_e.swSaveAsOptions_Silent, Nothing, erro, aviso)
-
-            'swModel.Save()
+            swModel.Save()
 
             'Cria desenho
             Desenhar(fullNameSaveAs)
@@ -77,8 +77,9 @@ Module ModuloMain
             'If True Then
             'swApp.ExitApp()
             'End If
-            FinalizarSolidWorks()
+            Console.WriteLine(codigo)
         Next
+        FinalizarSolidWorks()
     End Sub
 
 End Module

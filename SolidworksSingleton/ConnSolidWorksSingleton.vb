@@ -16,11 +16,4 @@
             Return Nothing
         End Try
     End Function
-
-
-    'Function _swModel() As SldWorks.ModelDoc2
-    '    swModel = swApp.ActiveDoc
-    '    Return swModel
-    'End Function
-
 End Module

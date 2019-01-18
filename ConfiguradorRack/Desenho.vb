@@ -32,9 +32,9 @@ Module Desenho
         End Try
 
         'Dim retBool = swDrawing.Create1stAngleViews(fullPath)
-        swView = swDrawing.CreateDrawViewFromModelView3(fullPath, "*Front", 0.18, 0.33, 0)
+        swView = swDrawing.CreateDrawViewFromModelView3(fullPath, "*Front", 0.17, 0.33, 0)
         'swView = swDrawing.CreateDrawViewFromModelView3(fullPath, "*Top", 0.155, 0.246, 0)
-        swView = swDrawing.CreateDrawViewFromModelView3(fullPath, "*Left", 0.35, 0.33, 0)
+        swView = swDrawing.CreateDrawViewFromModelView3(fullPath, "*Left", 0.36, 0.33, 0)
         swView = swDrawing.CreateDrawViewFromModelView3(fullPath, "*Dimetric", 0.2, 0.14, 0)
         'swModel.ClearSelection2(True)
 
@@ -68,8 +68,10 @@ Module Desenho
         InserirBaloes("Drawing View3")
         InserirBaloes("Drawing View1")
         'Console.ReadKey()
+        Cotar("Drawing View1")
         Salvar2DSolidworks(fullPath)
         SalvarPDF(fullPath)
+
     End Sub
 
     Private Sub InserirBaloes(nomeDaVista)
@@ -117,6 +119,7 @@ Module Desenho
     Private Sub InserirBOM()
         swModel = swApp.ActiveDoc
         swDrawing = swModel
+        Dim swBomFeature As BomFeature
         swView = swDrawing.GetFirstView
         Dim swActiveView As View = swView.GetNextView
         Dim nomeDaBOM = "C:\Users\54808\Documents\1 - Docs Ricardo\Solidworks utilidades\Templates\LISTA MONTAGEM.sldbomtbt"
@@ -125,6 +128,21 @@ Module Desenho
         swBomTable = swActiveView.InsertBomTable4(True, 0, 0, swBOMConfigurationAnchorType_e.swBOMConfigurationAnchor_BottomRight,
                                                   swBomType_e.swBomType_TopLevelOnly, swConfig, nomeDaBOM, False,
                                                   swNumberingType_e.swNumberingType_Detailed, False)
+        swBomFeature = swBomTable.BomFeature
+        swBomFeature.FollowAssemblyOrder2 = True
+    End Sub
 
+    Sub Cotar(nomeDaVista As String)
+        Try
+            Dim retLong As Long
+            retLong = swModel.ActivateView(nomeDaVista)
+            'retLong = swExt.SelectByID2(nomeDaVista, "DRAWINGVIEW", 0, 0, 0, False, 0, Nothing, swSelectOption_e.swSelectOptionDefault)
+            retLong = swExt.SelectByID2("Point1@Sketch7@4020000-1@Drawing View1/2300142-1@4020000", "EXTSKETCHPOINT", 0, 0, 0, False, 0, Nothing, 0)
+            retLong = swExt.SelectByID2("Point1@Sketch8@4020000-1@Drawing View1/2300142-1@4020000", "EXTSKETCHPOINT", 0, 0, 0, True, 0, Nothing, 0)
+            Dim myDisplayDim As Object
+            myDisplayDim = swDrawing.AddDimension2(0.17, 0.27, 0)
+        Catch ex As Exception
+            Exit Sub
+        End Try
     End Sub
 End Module
