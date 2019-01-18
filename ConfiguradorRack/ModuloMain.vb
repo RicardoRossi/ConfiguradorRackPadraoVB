@@ -10,7 +10,7 @@ Module ModuloMain
 
     Public Sub Main()
 
-        Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020230, 1)
+        Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 1)
 
         For Each codigo In codigos
             Dim fullNameSaveAs = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\RACK PADRAO TESTE\" & codigo & ".SLDASM"
@@ -43,8 +43,10 @@ Module ModuloMain
             'Preencher propriedades
             Propriedades.AdicionarPropriedades(codigo)
 
+
             'Salva a montagem
             swModel.SaveAs3(fullNameSaveAs, 0, 0)
+
 
             'Exclude peça da BOM
             swExt = swModel.Extension
@@ -52,6 +54,9 @@ Module ModuloMain
             Dim retBool = swExt.SelectByID2(selecao, "COMPONENT", 0, 0, 0, False, 0, Nothing, 0)
             swAsm = swModel
             retBool = swAsm.CompConfigProperties5(2, 0, False, True, "", True, False)
+
+            swModel.Save()
+
             'Cria desenho
             Desenhar(fullNameSaveAs)
 
