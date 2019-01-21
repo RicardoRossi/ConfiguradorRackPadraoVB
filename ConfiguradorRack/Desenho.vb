@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports SldWorks
 Imports SwConst
+Imports Cotas
 
 Module Desenho
     Dim swApp As SldWorks.SldWorks
@@ -68,7 +69,23 @@ Module Desenho
         InserirBaloes("Drawing View3")
         InserirBaloes("Drawing View1")
         'Console.ReadKey()
-        Cotar("Drawing View1")
+        'Cotar("Drawing View1")
+        Dim valorDaCotaHorizontal = Cotagem.Cotar(swApp, "e_2300081_fle", "e_2300060_fld", "Drawing View1", 0.17, 0.27)
+        Dim valorArredondado = (Math.Round(valorDaCotaHorizontal / 1000, 1))
+        Select Case valorArredondado
+            Case 3.2
+                Cotagem.Cotar(swApp, "e_2300055_sup", "e_2300060_inf", "Drawing View1", 0.265, 0.33)
+            Case 3.8
+                Cotagem.Cotar(swApp, "e_2300055_sup", "e_2300060_inf", "Drawing View1", 0.275, 0.33)
+            Case 4.4
+                Cotagem.Cotar(swApp, "e_2300055_sup", "e_2300060_inf", "Drawing View1", 0.305, 0.33)
+        End Select
+
+        'e_2048275_le
+        valorDaCotaHorizontal = Cotagem.Cotar(swApp, "e_2300080", "e_2300080", "Drawing View2", 0.36, 0.27)
+
+
+
         Salvar2DSolidworks(fullPath)
         SalvarPDF(fullPath)
 

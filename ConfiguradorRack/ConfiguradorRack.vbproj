@@ -133,6 +133,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cotas\Cotas.csproj">
+      <Project>{439426da-932f-4d68-82e3-f6e5a9b9cd62}</Project>
+      <Name>Cotas</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.vbproj">
       <Project>{e79a4ee0-b8e3-4dc8-bf45-40b8693b9ac4}</Project>
       <Name>DAL</Name>
