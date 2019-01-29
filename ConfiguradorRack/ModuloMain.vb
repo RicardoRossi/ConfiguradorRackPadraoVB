@@ -13,9 +13,11 @@ Module ModuloMain
 
     Public Sub Main()
 
-        Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 256)
+        'Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 5)
+        Dim listaDeCodigos = lerTXT.LerTXT
 
-        For Each codigo In codigos
+        For Each codigo In listaDeCodigos
+            Console.WriteLine(codigo)
             Dim fullNameSaveAs = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\RACK PADRAO TESTE\" & codigo & ".SLDASM"
             Try
                 swApp = _swApp() 'Atribui o objeto Sldworks do singleton a variável local swApp

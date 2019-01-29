@@ -5,12 +5,12 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3FCF3001-CF60-4CB0-AEC4-940D0DEDC8D8}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <StartupObject>ConfiguradorRack.ModuloMain</StartupObject>
     <RootNamespace>ConfiguradorRack</RootNamespace>
     <AssemblyName>ConfiguradorRack</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <MyType>Console</MyType>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Desenho.vb" />
+    <Compile Include="LerTXT.vb" />
     <Compile Include="OpcoesDoSistema.vb" />
     <Compile Include="Propriedades.vb" />
     <Compile Include="SolidWorksSingleton.vb" />
