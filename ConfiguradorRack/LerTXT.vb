@@ -1,7 +1,7 @@
 Imports System.IO
 Module lerTXT
     Function LerTXT() As List(Of String)
-        Dim pathTXT = "C:\Users\54808\source\repos\ConfiguradorRackPadraoVB\rackColSuc7-8.txt"
+        Dim pathTXT = "C:\Users\54808\source\repos\ConfiguradorRackPadraoVB\numeracao 4020001-4020256.txt"
         Dim ListaDecodigos As List(Of String) = New List(Of String)
         Using sr As New StreamReader(pathTXT)
             While Not sr.EndOfStream

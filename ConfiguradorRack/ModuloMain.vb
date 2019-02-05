@@ -14,10 +14,10 @@ Module ModuloMain
     Public Sub Main()
 
         'Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 5)
-        Dim listaDeCodigos = lerTXT.LerTXT
+        'Dim listaDeCodigos = lerTXT.LerTXT
+        Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020087", "4020215"}
 
         For Each codigo In listaDeCodigos
-            Console.WriteLine(codigo)
             Dim fullNameSaveAs = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\RACK PADRAO TESTE\" & codigo & ".SLDASM"
             Try
                 swApp = _swApp() 'Atribui o objeto Sldworks do singleton a variável local swApp
@@ -27,8 +27,10 @@ Module ModuloMain
             End Try
 
             Try
-                Dim caminhoTemplate = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\template_00_rp.SLDASM"
-                swApp.OpenDoc6(caminhoTemplate, swDocumentTypes_e.swDocASSEMBLY, swOpenDocOptions_e.swOpenDocOptions_ReadOnly, "", erro, aviso)
+                'Dim caminhoTemplate = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\template_00_rp.SLDASM"
+                Dim caminhoTemplate = "C:\Users\54808\Documents\template_00_rp.SLDASM"
+
+                swModel = swApp.OpenDoc6(caminhoTemplate, swDocumentTypes_e.swDocASSEMBLY, swOpenDocOptions_e.swOpenDocOptions_ReadOnly, "", erro, aviso)
                 swApp.ActivateDoc(caminhoTemplate)
             Catch ex As Exception
                 Threading.Thread.Sleep(60000)
@@ -43,8 +45,8 @@ Module ModuloMain
 
             swApp.DocumentVisible(True, swDocumentTypes_e.swDocASSEMBLY)
             swApp.DocumentVisible(True, swDocumentTypes_e.swDocPART)
-            swApp.ActivateDoc("C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\template_00_rp.SLDASM")
-            swModel = swApp.ActiveDoc
+            'swApp.ActivateDoc("C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\template_00_rp.SLDASM")
+            'swModel = swApp.ActiveDoc
             swExt = swModel.Extension
 
             'Salva a montagem
@@ -75,11 +77,14 @@ Module ModuloMain
             swModel.EditRebuild3()
             'ReadKey()
             'Stop
+
             swApp.CloseAllDocuments(True)
-            'If True Then
+
+
             'swApp.ExitApp()
-            'End If
+
             Console.WriteLine(codigo)
+            'FinalizarSolidWorks()
         Next
         FinalizarSolidWorks()
     End Sub

@@ -33,7 +33,7 @@ Module Fabrica
             For Each arquivo In listaArquivosEncontrados
                 'Aqui abrir os arquivos. OpenDoc6
                 'Cada vez que abrir um arquivo pegar intanciar uma peca, atribuir o item correspondente e pegar o seu Component2
-                Console.WriteLine($"{i} {arquivo}")
+                'Console.WriteLine($"{i} {arquivo}")
                 i += 1
                 _tipoArquivo = TipoArquivo(arquivo)
 
