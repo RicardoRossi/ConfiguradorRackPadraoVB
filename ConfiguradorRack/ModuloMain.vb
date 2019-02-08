@@ -14,8 +14,8 @@ Module ModuloMain
     Public Sub Main()
 
         'Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 5)
-        'Dim listaDeCodigos = lerTXT.LerTXT
-        Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020087", "4020215"}
+        Dim listaDeCodigos = lerTXT.LerTXT
+        'Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020087", "4020215"}
 
         For Each codigo In listaDeCodigos
             Dim fullNameSaveAs = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\RACK PADRAO TESTE\" & codigo & ".SLDASM"
@@ -31,7 +31,12 @@ Module ModuloMain
                 Dim caminhoTemplate = "C:\Users\54808\Documents\template_00_rp.SLDASM"
 
                 swModel = swApp.OpenDoc6(caminhoTemplate, swDocumentTypes_e.swDocASSEMBLY, swOpenDocOptions_e.swOpenDocOptions_ReadOnly, "", erro, aviso)
-                swApp.ActivateDoc(caminhoTemplate)
+                If swModel Is Nothing Then
+                    Dim erroMsg As swFileLoadError_e
+                    erroMsg = CType(erro, swFileLoadError_e)
+                    Console.WriteLine(erroMsg)
+                End If
+                'swApp.ActivateDoc(caminhoTemplate)
             Catch ex As Exception
                 Threading.Thread.Sleep(60000)
                 Continue For
@@ -47,14 +52,19 @@ Module ModuloMain
             swApp.DocumentVisible(True, swDocumentTypes_e.swDocPART)
             'swApp.ActivateDoc("C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\template_00_rp.SLDASM")
             'swModel = swApp.ActiveDoc
-            swExt = swModel.Extension
 
-            'Salva a montagem
-            retBool = swExt.SaveAs(fullNameSaveAs, swSaveAsVersion_e.swSaveAsCurrentVersion, swSaveAsOptions_e.swSaveAsOptions_Silent, Nothing, erro, aviso)
+            Try
+                SalvarRack(fullNameSaveAs)
+            Catch ex As Exception
+                Continue For
+            End Try
 
             'Preencher propriedades
             Propriedades.AdicionarPropriedades(codigo)
 
+            swApp = _swApp()
+            swModel = swApp.ActiveDoc
+            swExt = swModel.Extension
             'Exclude peça da BOM
             Dim selecao = "SCM_RP-1@" & codigo
             retBool = swExt.SelectByID2(selecao, "COMPONENT", 0, 0, 0, False, 0, Nothing, 0)
@@ -80,7 +90,6 @@ Module ModuloMain
 
             swApp.CloseAllDocuments(True)
 
-
             'swApp.ExitApp()
 
             Console.WriteLine(codigo)
@@ -89,4 +98,21 @@ Module ModuloMain
         FinalizarSolidWorks()
     End Sub
 
+    Private Sub SalvarRack(fullNameSaveAs As String)
+        Dim swApp = _swApp()
+        Dim swModel As ModelDoc2
+        Dim swExt As ModelDocExtension
+
+        Try
+            swModel = swApp.ActiveDoc
+            swExt = swModel.Extension
+
+            'Salva a montagem
+            retBool = swExt.SaveAs(fullNameSaveAs, swSaveAsVersion_e.swSaveAsCurrentVersion,
+                                   swSaveAsOptions_e.swSaveAsOptions_Silent, Nothing, erro, aviso)
+        Catch ex As Exception
+            Throw
+        End Try
+
+    End Sub
 End Module
