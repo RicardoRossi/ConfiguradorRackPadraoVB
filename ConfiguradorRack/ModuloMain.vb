@@ -74,8 +74,9 @@ Module ModuloMain
             Configuracao.TrocarConfiguracaoBase(swAsm)
             swModel.Save()
 
+            '''''''''''''''''''''''''''''''''''''''''''''''''
             'Cria desenho
-            Desenhar(fullNameSaveAs)
+            'Desenhar(fullNameSaveAs)
 
             'swAsm = swModel
             'Dim pecas() As Object = swAsm.GetComponents(True)
@@ -84,13 +85,14 @@ Module ModuloMain
             '    comp = p
             '    comp.Select(True)
             'Next
-            swModel.EditRebuild3()
+            '''''''''''''''''''''''''''''''''''''''''''''''''
+            'swModel.EditRebuild3()
             'ReadKey()
             'Stop
 
             swApp.CloseAllDocuments(True)
 
-            'swApp.ExitApp()
+            swApp.ExitApp()
 
             Console.WriteLine(codigo)
             'FinalizarSolidWorks()
