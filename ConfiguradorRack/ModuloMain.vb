@@ -8,14 +8,13 @@ Module ModuloMain
     Dim swExt As ModelDocExtension
     Dim swAsm As AssemblyDoc
     Dim swView As ModelView
-    Dim erro, aviso As Integer
-    Dim retBool As Boolean
 
     Public Sub Main()
 
         'Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 5)
-        'Dim listaDeCodigos = lerTXT.LerTXT
-        Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020046", "4020001"}
+        Dim listaDeCodigos = lerTXT.LerTXT
+        'Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020046", "4020001"}
+        Const caminhoTemplate = "C:\Users\54808\Documents\template_00_rp.SLDASM"
 
         For Each codigo In listaDeCodigos
             Dim fullNameSaveAs = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\RACK PADRAO TESTE\" & codigo & ".SLDASM"
@@ -26,21 +25,12 @@ Module ModuloMain
                 Stop
             End Try
 
-            Try
-                'Dim caminhoTemplate = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\template_00_rp.SLDASM"
-                Dim caminhoTemplate = "C:\Users\54808\Documents\template_00_rp.SLDASM"
-
-                swModel = swApp.OpenDoc6(caminhoTemplate, swDocumentTypes_e.swDocASSEMBLY, swOpenDocOptions_e.swOpenDocOptions_ReadOnly, "", erro, aviso)
-                If swModel Is Nothing Then
-                    Dim erroMsg As swFileLoadError_e
-                    erroMsg = CType(erro, swFileLoadError_e)
-                    Console.WriteLine(erroMsg)
-                End If
-                'swApp.ActivateDoc(caminhoTemplate)
-            Catch ex As Exception
-                Threading.Thread.Sleep(60000)
-                Continue For
-            End Try
+            'Dim caminhoTemplate = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\template_00_rp.SLDASM"
+            Dim erro, aviso As Integer
+            Dim retBool As Boolean
+            swModel = swApp.OpenDoc6(caminhoTemplate, swDocumentTypes_e.swDocASSEMBLY, swOpenDocOptions_e.swOpenDocOptions_ReadOnly, "", erro, aviso)
+            Console.WriteLine("Erro " & erro & " - Abrir template")
+            Console.WriteLine("Aviso " & aviso & " - Abrir template")
 
             Try
                 GerarPlanilhaDoKit(codigo)
@@ -89,13 +79,14 @@ Module ModuloMain
             'swModel.EditRebuild3()
             'ReadKey()
             'Stop
-
             swApp.CloseAllDocuments(True)
 
-            swApp.ExitApp()
-
             Console.WriteLine(codigo)
-            'FinalizarSolidWorks()
+            fullNameSaveAs = Nothing
+            swExt = Nothing
+            swModel = Nothing
+            swApp = Nothing
+            'swApp.ExitApp()
         Next
         FinalizarSolidWorks()
     End Sub
@@ -104,6 +95,8 @@ Module ModuloMain
         Dim swApp = _swApp()
         Dim swModel As ModelDoc2
         Dim swExt As ModelDocExtension
+        Dim erro, aviso As Integer
+        Dim retBool As Boolean
 
         Try
             swModel = swApp.ActiveDoc
@@ -112,6 +105,8 @@ Module ModuloMain
             'Salva a montagem
             retBool = swExt.SaveAs(fullNameSaveAs, swSaveAsVersion_e.swSaveAsCurrentVersion,
                                    swSaveAsOptions_e.swSaveAsOptions_Silent, Nothing, erro, aviso)
+            Console.WriteLine("Erro " & erro & " - ao salvar")
+            Console.WriteLine("Aviso " & aviso & " - ao salvar")
         Catch ex As Exception
             Throw
         End Try
