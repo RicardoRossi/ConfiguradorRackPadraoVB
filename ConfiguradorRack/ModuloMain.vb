@@ -74,7 +74,7 @@ Module ModuloMain
 
             '''''''''''''''''''''''''''''''''''''''''''''''''
             'Cria desenho
-            'Desenhar(fullNameSaveAs)
+            Desenhar(fullNameSaveAs)
 
             'swAsm = swModel
             'Dim pecas() As Object = swAsm.GetComponents(True)
