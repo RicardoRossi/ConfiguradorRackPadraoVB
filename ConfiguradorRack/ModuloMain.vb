@@ -13,11 +13,12 @@ Module ModuloMain
 
         'Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 5)
         Dim listaDeCodigos = lerTXT.LerTXT
-        'Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020046", "4020001"}
+        'Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020083", "4020084", "4020085", "4020086"}
         Const caminhoTemplate = "C:\Users\54808\Documents\template_00_rp.SLDASM"
+        Dim fullNameSaveAs As String = Nothing
 
         For Each codigo In listaDeCodigos
-            Dim fullNameSaveAs = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\RACK PADRAO TESTE\" & codigo & ".SLDASM"
+            fullNameSaveAs = "C:\Users\54808\Documents\rack padrao\" & codigo & ".SLDASM"
             Try
                 swApp = _swApp() 'Atribui o objeto Sldworks do singleton a variável local swApp
             Catch ex As Exception
@@ -29,8 +30,11 @@ Module ModuloMain
             Dim erro, aviso As Integer
             Dim retBool As Boolean
             swModel = swApp.OpenDoc6(caminhoTemplate, swDocumentTypes_e.swDocASSEMBLY, swOpenDocOptions_e.swOpenDocOptions_ReadOnly, "", erro, aviso)
-            Console.WriteLine("Erro " & erro & " - Abrir template")
-            Console.WriteLine("Aviso " & aviso & " - Abrir template")
+
+            If erro <> 0 Or aviso <> 0 Then
+                Console.WriteLine("Erro " & erro & " - Abrir template")
+                Console.WriteLine("Aviso " & aviso & " - Abrir template")
+            End If
 
             Try
                 GerarPlanilhaDoKit(codigo)
@@ -42,12 +46,6 @@ Module ModuloMain
             swApp.DocumentVisible(True, swDocumentTypes_e.swDocPART)
             'swApp.ActivateDoc("C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\template_00_rp.SLDASM")
             'swModel = swApp.ActiveDoc
-
-            Try
-                SalvarRack(fullNameSaveAs)
-            Catch ex As Exception
-                Continue For
-            End Try
 
             'Preencher propriedades
             Propriedades.AdicionarPropriedades(codigo)
@@ -62,7 +60,14 @@ Module ModuloMain
             retBool = swAsm.CompConfigProperties5(2, 0, False, True, "", True, False)
 
             Configuracao.TrocarConfiguracaoBase(swAsm)
-            swModel.Save()
+            'swModel.Save()
+
+            Try
+                SalvarRack(fullNameSaveAs)
+            Catch ex As Exception
+                swApp.CloseAllDocuments(True)
+                Continue For
+            End Try
 
             '''''''''''''''''''''''''''''''''''''''''''''''''
             'Cria desenho
@@ -85,7 +90,7 @@ Module ModuloMain
             fullNameSaveAs = Nothing
             swExt = Nothing
             swModel = Nothing
-            swApp = Nothing
+            'swApp = Nothing
             'swApp.ExitApp()
         Next
         FinalizarSolidWorks()
@@ -105,9 +110,19 @@ Module ModuloMain
             'Salva a montagem
             retBool = swExt.SaveAs(fullNameSaveAs, swSaveAsVersion_e.swSaveAsCurrentVersion,
                                    swSaveAsOptions_e.swSaveAsOptions_Silent, Nothing, erro, aviso)
-            Console.WriteLine("Erro " & erro & " - ao salvar")
-            Console.WriteLine("Aviso " & aviso & " - ao salvar")
+            If erro <> 0 Or aviso <> 0 Then
+                Console.WriteLine("Erro " & erro & " - ao salvar")
+                Console.WriteLine("Aviso " & aviso & " - ao salvar")
+            End If
+
         Catch ex As Exception
+            Dim erroCodigo As Object = Nothing
+            Dim varMessage As Object = Nothing
+            Dim varPath As Object = Nothing
+            varMessage = swApp.GetLastSaveError(varPath, erroCodigo)
+            Console.WriteLine("Documento gerador do erro " & varPath)
+            Console.WriteLine("Codigo do erro " & erroCodigo)
+            Console.WriteLine("Menssagem do erro " & varMessage)
             Throw
         End Try
 

@@ -32,7 +32,7 @@ Module Fabrica
             'Talves pegar todos os caminhos que vieram no IEnumerable e abrir na memória pegar o componente e localizar o cs_ dele, se não tiver o cs_ não inserir na montagem.
             For Each arquivo In listaArquivosEncontrados
                 'Aqui abrir os arquivos. OpenDoc6
-                'Cada vez que abrir um arquivo pegar intanciar uma peca, atribuir o item correspondente e pegar o seu Component2
+                'Cada vez que abrir um arquivo pegar instanciar uma peca, atribuir o item correspondente e pegar o seu Component2
                 'Console.WriteLine($"{i} {arquivo}")
 
                 If arquivo.Contains("3010001") Or arquivo.Contains("MONTCP") Or arquivo.Contains("2300082") _
@@ -60,7 +60,7 @@ Module Fabrica
 
                 'Se a peça não tiver um cs_ vai para o próximo arquivo do For Each.
                 'A verificação é para evitar inserir peças duplicadas, por exemplo uma com o mesmo código,
-                'porém uma sldprt e uma sldasm. Simente uma delas terá o cs_
+                'porém uma sldprt e uma sldasm. Somente uma delas terá o cs_
                 If Not VerificarCs(swModel) Then
                     Continue For
                 End If
@@ -95,7 +95,7 @@ Module Fabrica
 
     Private Function AbrirArquivoNaMemoria(tipoArquivo As swDocumentTypes_e, arquivo As String) As ModelDoc2
         Try
-            'Testa se o arquivo já esta aberto.
+            'Testa se o arquivo já esta aberto. No caso da insersão de várias instâncias
             swModel = swApp.GetOpenDocumentByName(arquivo)
             If swModel IsNot Nothing Then
                 Return swModel
