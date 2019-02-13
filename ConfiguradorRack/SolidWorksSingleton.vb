@@ -5,7 +5,9 @@
         Try
             If swApp Is Nothing Then
                 swApp = GetObject("", "SldWorks.Application")
-                swApp.Visible = True
+                swApp.Visible = False
+                'Prevents the user from having control over the application
+                swApp.UserControlBackground = False
                 Return swApp
             Else
                 Return swApp

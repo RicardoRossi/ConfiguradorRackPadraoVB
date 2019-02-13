@@ -31,6 +31,9 @@ Module ModuloMain
             Dim retBool As Boolean
             swModel = swApp.OpenDoc6(caminhoTemplate, swDocumentTypes_e.swDocASSEMBLY, swOpenDocOptions_e.swOpenDocOptions_ReadOnly, "", erro, aviso)
 
+            'Prevente feature tree from updating
+            swModel.FeatureManager.EnableFeatureTree = False
+
             If erro <> 0 Or aviso <> 0 Then
                 Console.WriteLine("Erro " & erro & " - Abrir template")
                 Console.WriteLine("Aviso " & aviso & " - Abrir template")
