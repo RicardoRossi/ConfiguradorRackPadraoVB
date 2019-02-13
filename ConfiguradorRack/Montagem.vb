@@ -9,6 +9,7 @@ Module Montagem
         Dim swModel As ModelDoc2
         Dim swFeaturePecaOrigem As Feature = Nothing
         Dim swView As ModelView
+        swApp = _swApp()
         swModel = swApp.ActiveDoc
         swView = swModel.ActiveView
         swView.EnableGraphicsUpdate = False 'Desabilita atualização da tela.

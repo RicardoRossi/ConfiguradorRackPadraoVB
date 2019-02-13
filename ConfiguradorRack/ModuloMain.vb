@@ -13,7 +13,7 @@ Module ModuloMain
 
         'Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 5)
         Dim listaDeCodigos = lerTXT.LerTXT
-        'Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020083", "4020084", "4020085", "4020086"}
+        'Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020001", "4020002", "4020003", "4020004"}
         Const caminhoTemplate = "C:\Users\54808\Documents\template_00_rp.SLDASM"
         Dim fullNameSaveAs As String = Nothing
 
@@ -88,12 +88,13 @@ Module ModuloMain
 
             Console.WriteLine(codigo)
             fullNameSaveAs = Nothing
-            swExt = Nothing
-            swModel = Nothing
+            'swExt = Nothing
+            'swModel = Nothing
             'swApp = Nothing
             'swApp.ExitApp()
+            FinalizarSolidWorks()
         Next
-        FinalizarSolidWorks()
+        'FinalizarSolidWorks()
     End Sub
 
     Private Sub SalvarRack(fullNameSaveAs As String)

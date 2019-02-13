@@ -94,6 +94,10 @@ Module Fabrica
     End Sub
 
     Private Function AbrirArquivoNaMemoria(tipoArquivo As swDocumentTypes_e, arquivo As String) As ModelDoc2
+        Dim swApp As SldWorks.SldWorks
+        Dim swModel As ModelDoc2
+        swApp = _swApp()
+        swModel = swApp.ActiveDoc
         Try
             'Testa se o arquivo já esta aberto. No caso da insersão de várias instâncias
             swModel = swApp.GetOpenDocumentByName(arquivo)
@@ -131,6 +135,7 @@ Module Fabrica
     End Function
 
     Function InsertPeca(arquivo As String) As Component2
+        Dim swApp = _swApp()
         swModel = swApp.ActiveDoc
         Dim swAsm As AssemblyDoc = swModel
         Dim swComp As Component2

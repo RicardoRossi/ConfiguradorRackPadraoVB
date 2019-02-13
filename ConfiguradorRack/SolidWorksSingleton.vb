@@ -18,6 +18,7 @@
     End Function
 
     Sub FinalizarSolidWorks()
+        swModel = Nothing
         swApp.ExitApp()
         swApp = Nothing
         Dim swProc() As Process = Process.GetProcessesByName("SLDWORKS")
