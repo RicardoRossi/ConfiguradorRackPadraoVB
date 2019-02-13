@@ -5,7 +5,8 @@
         Try
             If swApp Is Nothing Then
                 swApp = GetObject("", "SldWorks.Application")
-                swApp.Visible = True
+                swApp.Visible = False
+                swApp.UserControlBackground = True
                 Return swApp
             Else
                 Return swApp
@@ -26,5 +27,10 @@
             Dim ID = proc.Id
             proc.Kill()
         Next
+    End Sub
+
+    Sub NullSwApp()
+        swApp = Nothing
+        GC.Collect()
     End Sub
 End Module

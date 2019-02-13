@@ -2,6 +2,8 @@
 Imports SldWorks
 Imports System.Console
 Imports TrocaConfiguracao
+Imports System.Runtime.InteropServices
+
 Module ModuloMain
     Dim swApp As SldWorks.SldWorks
     Dim swModel As ModelDoc2
@@ -13,7 +15,7 @@ Module ModuloMain
 
         'Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 5)
         Dim listaDeCodigos = lerTXT.LerTXT
-        'Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020001", "4020002", "4020003", "4020004"}
+        'Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020000", "4020000", "4020000", "4020000"}
         Const caminhoTemplate = "C:\Users\54808\Documents\template_00_rp.SLDASM"
         Dim fullNameSaveAs As String = Nothing
 
@@ -30,6 +32,10 @@ Module ModuloMain
             Dim erro, aviso As Integer
             Dim retBool As Boolean
             swModel = swApp.OpenDoc6(caminhoTemplate, swDocumentTypes_e.swDocASSEMBLY, swOpenDocOptions_e.swOpenDocOptions_ReadOnly, "", erro, aviso)
+
+            'Prevent feature tree from updating
+            swModel.FeatureManager.EnableFeatureTree = False
+
 
             If erro <> 0 Or aviso <> 0 Then
                 Console.WriteLine("Erro " & erro & " - Abrir template")
@@ -88,11 +94,15 @@ Module ModuloMain
 
             Console.WriteLine(codigo)
             fullNameSaveAs = Nothing
-            'swExt = Nothing
-            'swModel = Nothing
+            swExt = Nothing
+            swModel = Nothing
             'swApp = Nothing
             'swApp.ExitApp()
-            FinalizarSolidWorks()
+
+            'Marshal.FinalReleaseComObject(swModel)
+            Marshal.FinalReleaseComObject(swApp)
+            NullSwApp()
+            'FinalizarSolidWorks()
         Next
         'FinalizarSolidWorks()
     End Sub
