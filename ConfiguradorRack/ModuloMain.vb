@@ -2,6 +2,8 @@
 Imports SldWorks
 Imports System.Console
 Imports TrocaConfiguracao
+Imports System.IO
+
 Module ModuloMain
     Dim swApp As SldWorks.SldWorks
     Dim swModel As ModelDoc2
@@ -13,7 +15,7 @@ Module ModuloMain
 
         'Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 5)
         Dim listaDeCodigos = lerTXT.LerTXT
-        'Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020001", "4020002", "4020003", "4020004"}
+        'Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020046", "4020049", "4020124", "4020126", "4020127", "4020174", "4020177", "4020252", "4020254", "4020255"}
         Const caminhoTemplate = "C:\Users\54808\Documents\template_00_rp.SLDASM"
         Dim fullNameSaveAs As String = Nothing
 
@@ -57,7 +59,7 @@ Module ModuloMain
             swModel = swApp.ActiveDoc
             swExt = swModel.Extension
             'Exclude peça da BOM
-            Dim selecao = "SCM_RP-1@" & codigo
+            Dim selecao = "SCM_RP-1@" & Path.GetFileNameWithoutExtension(swModel.GetPathName)
             retBool = swExt.SelectByID2(selecao, "COMPONENT", 0, 0, 0, False, 0, Nothing, 0)
             swAsm = swModel
             retBool = swAsm.CompConfigProperties5(2, 0, False, True, "", True, False)
@@ -74,7 +76,7 @@ Module ModuloMain
 
             '''''''''''''''''''''''''''''''''''''''''''''''''
             'Cria desenho
-            Desenhar(fullNameSaveAs)
+            'Desenhar(fullNameSaveAs)
 
             'swAsm = swModel
             'Dim pecas() As Object = swAsm.GetComponents(True)

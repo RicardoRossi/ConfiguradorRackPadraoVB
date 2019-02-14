@@ -84,8 +84,6 @@ Module Desenho
         'e_2048275_le
         valorDaCotaHorizontal = Cotagem.Cotar(swApp, "e_2300080", "e_2300080", "Drawing View2", 0.36, 0.27)
 
-
-
         Salvar2DSolidworks(fullPath)
         SalvarPDF(fullPath)
 

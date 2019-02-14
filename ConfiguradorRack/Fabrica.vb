@@ -35,13 +35,13 @@ Module Fabrica
                 'Cada vez que abrir um arquivo pegar instanciar uma peca, atribuir o item correspondente e pegar o seu Component2
                 'Console.WriteLine($"{i} {arquivo}")
 
-                'If arquivo.Contains("3010001") Or arquivo.Contains("MONTCP") Or arquivo.Contains("2300082") _
-                '    Or arquivo.Contains("2048261") Or arquivo.Contains("2047621") Or arquivo.Contains("2048115") _
-                '    Or arquivo.Contains("04216") Or arquivo.Contains("02237") Or arquivo.Contains("2048294") _
-                '    Or arquivo.Contains("2300049") Or arquivo.Contains("2300166") Or arquivo.Contains("2300168") _
-                '    Or arquivo.Contains("2300167") Or arquivo.Contains("3002932") Then
-                '    Continue For
-                'End If
+                If arquivo.Contains("3010001") Or arquivo.Contains("MONTCP") Or arquivo.Contains("2300082") _
+                    Or arquivo.Contains("2048261") Or arquivo.Contains("2047621") Or arquivo.Contains("2048115") _
+                    Or arquivo.Contains("04216") Or arquivo.Contains("02237") Or arquivo.Contains("2048294") _
+                    Or arquivo.Contains("2300049") Or arquivo.Contains("2300166") Or arquivo.Contains("2300168") _
+                    Or arquivo.Contains("2300167") Or arquivo.Contains("3002932") Then
+                    Continue For
+                End If
 
                 i += 1
                 _tipoArquivo = TipoArquivo(arquivo)
