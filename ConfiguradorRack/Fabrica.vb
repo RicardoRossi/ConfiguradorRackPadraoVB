@@ -39,8 +39,7 @@ Module Fabrica
                     Or arquivo.Contains("2048261") Or arquivo.Contains("2047621") Or arquivo.Contains("2048115") _
                     Or arquivo.Contains("04216") Or arquivo.Contains("02237") Or arquivo.Contains("2048294") _
                     Or arquivo.Contains("2300049") Or arquivo.Contains("2300166") Or arquivo.Contains("2300168") _
-                    Or arquivo.Contains("2300167") Or arquivo.Contains("3002932") Or arquivo.Contains("2300142") _
-                    Or arquivo.Contains("2300143") Or arquivo.Contains("2300144") Then
+                    Or arquivo.Contains("2300167") Or arquivo.Contains("3002932") Then
                     Continue For
                 End If
 

@@ -12,7 +12,7 @@ Module ModuloMain
     Dim swView As ModelView
 
     Public Sub Main()
-
+        Dim contador = 0
         'Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 5)
         Dim listaDeCodigos = lerTXT.LerTXT
         'Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020046", "4020049", "4020124", "4020126", "4020127", "4020174", "4020177", "4020252", "4020254", "4020255"}
@@ -97,7 +97,11 @@ Module ModuloMain
             'swModel = Nothing
             'swApp = Nothing
             'swApp.ExitApp()
-            FinalizarSolidWorks()
+
+            If contador = 5 Then
+                FinalizarSolidWorks()
+                contador += 1
+            End If
         Next
         'FinalizarSolidWorks()
     End Sub
