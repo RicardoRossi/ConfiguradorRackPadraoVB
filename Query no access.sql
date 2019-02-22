@@ -28,3 +28,16 @@ WHERE (((tbl_kit.[kit_cod]) ALike "4020141"));
 
 --Usar para criar um rack novo usando um existente como base.
 --Do rack 4020001 foi criado o 4020129. Antes de realizar o insert, criar o item 4020129 na tbl_item para não dar problema na integridade referencial.
+
+
+
+SELECT * INTO SAIDATQL150L158ELEMENTO2
+FROM TBL_KIT
+WHERE (((TBL_KIT.SCM) ALike 'cs_carcaca_liq' Or (TBL_KIT.SCM) ALike 'cs_carcaca_liq_2elementos') AND ((TBL_KIT.kit_cod_item)='2003695' Or (TBL_KIT.kit_cod_item)='2003697') AND ((TBL_KIT.KIT_COD) In (SELECT tbl_kit.kit_cod
+FROM tbl_kit
+WHERE (((tbl_kit.kit_cod_item)="2047214"))
+)));
+--Seleciona o TQL depois as carcaças que tem a mesma bitola.
+--2003695	"CARCACA 1 5/8"" DCR 2 ELEMENTO"
+--2003697	"CARCACA 1 5/8"" DCR 3 ELEMENTO"
+--2047214	TQL 150 VERT. STD ROT PT 3 1/8
