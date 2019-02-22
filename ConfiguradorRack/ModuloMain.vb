@@ -14,13 +14,13 @@ Module ModuloMain
     Public Sub Main()
         Dim contador = 1
         'Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 5)
-        Dim listaDeCodigos = lerTXT.LerTXT
-        'Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020129", "4020150"}
+        'Dim listaDeCodigos = lerTXT.LerTXT
+        Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020141"}
         Const caminhoTemplate = "C:\Users\54808\Documents\template_00_rp.SLDASM"
         Dim fullNameSaveAs As String = Nothing
 
         For Each codigo In listaDeCodigos
-            fullNameSaveAs = "C:\Users\54808\Documents\rack padrao\" & codigo & ".SLDASM"
+            fullNameSaveAs = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\RACK PADRAO TESTE\" & codigo & ".SLDASM"
             Try
                 swApp = _swApp() 'Atribui o objeto Sldworks do singleton a variável local swApp
             Catch ex As Exception
@@ -28,7 +28,6 @@ Module ModuloMain
                 Stop
             End Try
 
-            'Dim caminhoTemplate = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\template_00_rp.SLDASM"
             Dim erro, aviso As Integer
             Dim retBool As Boolean
             swModel = swApp.OpenDoc6(caminhoTemplate, swDocumentTypes_e.swDocASSEMBLY, swOpenDocOptions_e.swOpenDocOptions_ReadOnly, "", erro, aviso)
@@ -102,10 +101,9 @@ Module ModuloMain
                 FinalizarSolidWorks()
                 contador = 1
             End If
-
             contador += 1
         Next
-        'FinalizarSolidWorks()
+        FinalizarSolidWorks()
     End Sub
 
     Private Sub SalvarRack(fullNameSaveAs As String)
