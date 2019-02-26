@@ -14,8 +14,8 @@ Module ModuloMain
     Public Sub Main()
         Dim contador = 1
         'Dim codigos As IEnumerable(Of Integer) = Enumerable.Range(4020001, 5)
-        'Dim listaDeCodigos = lerTXT.LerTXT
-        Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020046", "4020128"}
+        Dim listaDeCodigos = lerTXT.LerTXT
+        'Dim listaDeCodigos As List(Of String) = New List(Of String) From {"4020128"}
         Const caminhoTemplate = "C:\ELETROFRIO\ENGENHARIA SMR\PRODUTOS FINAIS ELETROFRIO\MECÂNICA\RACK PADRAO\template_00_rp.SLDASM"
         Dim fullNameSaveAs As String = Nothing
 

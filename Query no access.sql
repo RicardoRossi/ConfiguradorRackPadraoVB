@@ -41,3 +41,21 @@ WHERE (((tbl_kit.kit_cod_item)="2047214"))
 --2003695	"CARCACA 1 5/8"" DCR 2 ELEMENTO"
 --2003697	"CARCACA 1 5/8"" DCR 3 ELEMENTO"
 --2047214	TQL 150 VERT. STD ROT PT 3 1/8
+
+
+SELECT tbl_kit.kit_cod, tbl_kit.kit_cod_item
+FROM tbl_kit
+WHERE tbl_kit.SCM ='cs_s_pur_ramal_entrada_maq' AND TBL_KIT.KIT_COD IN (
+SELECT tbl_kit.kit_cod
+FROM tbl_Item INNER JOIN (tbl_kit INNER JOIN tbl_Item AS tbl_Item_1 ON tbl_kit.kit_cod_item = tbl_Item_1.item_cod) ON tbl_Item.item_cod = tbl_kit.kit_cod
+WHERE tbl_Item_1.item_desc ALike 'COL S% %1 3/8"'
+ORDER BY tbl_kit.kit_cod, tbl_kit.sequencia)
+--
+
+
+UPDATE tbl_kit SET tbl_kit.kit_cod_item = "3002931"
+WHERE (((tbl_kit.kit_cod) In (SELECT tbl_kit.kit_cod
+FROM tbl_Item INNER JOIN (tbl_kit INNER JOIN tbl_Item AS tbl_Item_1 ON tbl_kit.kit_cod_item = tbl_Item_1.item_cod) ON tbl_Item.item_cod = tbl_kit.kit_cod
+WHERE tbl_Item_1.item_desc ALike 'COL S% %3 1/8"'
+ORDER BY tbl_kit.kit_cod, tbl_kit.sequencia)) AND ((tbl_kit.SCM) ALike 'cs_s_pur_ramal_entrada_maq'));
+--
