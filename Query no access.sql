@@ -75,6 +75,6 @@ FROM tbl_Item INNER JOIN tbl_kit INNER JOIN tbl_Item AS tbl_Item_1 ON tbl_kit.ki
 WHERE tbl_Item_1.item_desc ALike 'RPR2%"')
 
 
-
+AND (TBL_KIT.KIT_COD_ITEM = '2003687' OR AND TBL_KIT.KIT_COD_ITEM = '2003692')
 
 
